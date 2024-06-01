@@ -1,6 +1,6 @@
 Thanks for downloading this template!
 
-Template Name: Squadfree
-Template URL: https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/
+Template Name: MyResume
+Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
 Author: BootstrapMade.com
 License: https://bootstrapmade.com/license/
