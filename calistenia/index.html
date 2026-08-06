@@ -78,14 +78,14 @@
   </main>
 
   <dialog id="videoDialog">
-    <button class="close" id="closeDialog">×</button>
+    <button class="close" id="closeDialog" aria-label="Cerrar video">×</button>
     <h3 id="videoTitle"></h3>
-    <div class="video-placeholder">
-      <span>▶</span>
-      <p>Video de referencia del ejercicio</p>
+    <div class="video-frame">
+      <iframe id="videoPlayer" title="Video de técnica del ejercicio" src="" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
     <p id="videoInstructions"></p>
-    <a id="videoLink" class="primary link-button" target="_blank" rel="noopener">Buscar demostración en YouTube</a>
+    <p class="video-help">Reproduce el video aquí mismo y luego cierra esta ventana para continuar con tu rutina.</p>
+    <a id="videoLink" class="secondary link-button" target="_blank" rel="noopener">Abrir video en YouTube</a>
   </dialog>
 
   <footer>Calistenia 90 · Tu progreso se guarda automáticamente en este dispositivo.</footer>
