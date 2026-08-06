@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111827" />
+  <title>Calistenia 90 - Elmer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <span class="eyebrow">PROYECTO PERSONAL</span>
+      <h1>Calistenia 90</h1>
+      <p>Programa progresivo de 90 días para perder grasa, ganar fuerza y mejorar tu condición física.</p>
+    </div>
+    <div class="profile-card">
+      <div><strong>39</strong><span>años</span></div>
+      <div><strong>1.66</strong><span>metros</span></div>
+      <div><strong>100</strong><span>kg iniciales</span></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="dashboard grid">
+      <article class="card progress-card">
+        <div class="card-head"><h2>Progreso general</h2><span id="phaseBadge" class="badge"></span></div>
+        <div class="progress-ring" id="progressRing"><span id="progressPercent">0%</span></div>
+        <p><strong id="completedDays">0</strong> de 90 días completados</p>
+        <div class="bar"><span id="progressBar"></span></div>
+      </article>
+
+      <article class="card">
+        <h2>Registro corporal</h2>
+        <div class="form-grid">
+          <label>Peso (kg)<input id="weightInput" type="number" step="0.1" placeholder="100" /></label>
+          <label>Cintura (cm)<input id="waistInput" type="number" step="0.1" placeholder="Medida actual" /></label>
+        </div>
+        <button id="saveMetrics" class="primary">Guardar registro</button>
+        <p id="lastMetrics" class="muted">Aún no hay registros.</p>
+      </article>
+
+      <article class="card tips">
+        <h2>Reglas del programa</h2>
+        <ul>
+          <li>Calienta entre 8 y 10 minutos.</li>
+          <li>Entrena sin dolor articular.</li>
+          <li>Descansa 60–90 segundos por serie.</li>
+          <li>Camina a diario y cuida la alimentación.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="planner card">
+      <div class="planner-head">
+        <div>
+          <span class="eyebrow">PLAN DIARIO</span>
+          <h2 id="dayTitle">Día 1</h2>
+          <p id="daySubtitle"></p>
+        </div>
+        <div class="day-nav">
+          <button id="prevDay" aria-label="Día anterior">←</button>
+          <select id="daySelect" aria-label="Seleccionar día"></select>
+          <button id="nextDay" aria-label="Día siguiente">→</button>
+        </div>
+      </div>
+      <div id="exerciseList" class="exercise-list"></div>
+      <div class="day-actions">
+        <button id="completeDay" class="primary">Marcar día completo</button>
+        <button id="resetDay" class="secondary">Reiniciar día</button>
+      </div>
+    </section>
+
+    <section class="card calendar-section">
+      <div class="card-head"><h2>Calendario de 90 días</h2><span class="muted">Selecciona un día</span></div>
+      <div id="calendar" class="calendar"></div>
+    </section>
+  </main>
+
+  <dialog id="videoDialog">
+    <button class="close" id="closeDialog">×</button>
+    <h3 id="videoTitle"></h3>
+    <div class="video-placeholder">
+      <span>▶</span>
+      <p>Video de referencia del ejercicio</p>
+    </div>
+    <p id="videoInstructions"></p>
+    <a id="videoLink" class="primary link-button" target="_blank" rel="noopener">Buscar demostración en YouTube</a>
+  </dialog>
+
+  <footer>Calistenia 90 · Tu progreso se guarda automáticamente en este dispositivo.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
