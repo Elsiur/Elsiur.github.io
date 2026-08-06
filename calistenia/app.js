@@ -127,6 +127,22 @@ const fallback = [
   ['Plancha','30 a 45 segundos','Abdomen firme.']
 ];
 
+const exerciseVideos = [
+  { match: ['flexiones'], id: 'IODxDxX7oi4' },
+  { match: ['sentadillas', 'sentadilla'], id: 'YaXPRqUwItQ' },
+  { match: ['puente de glúteos', 'hip thrust'], id: 'wPM8icPu6H8' },
+  { match: ['plancha lateral'], id: 'K2VljzCC16g' },
+  { match: ['plancha'], id: 'pSHjTRCQxIw' },
+  { match: ['bird dog'], id: 'wiFNA3sqjCA' },
+  { match: ['pantorrillas', 'elevación de pantorrillas'], id: 'gwLzBJYoWlI' },
+  { match: ['dead bug'], id: '4XLEnwUr1d8' },
+  { match: ['zancadas'], id: 'QOVaHwm-Q6U' },
+  { match: ['sentadilla búlgara'], id: '2C-uNgKwPLE' },
+  { match: ['pike push-up'], id: 'sposDXWEB0A' },
+  { match: ['fondos'], id: '0326dy_-CzM' },
+  { match: ['hollow hold'], id: 'LlDNef_Ztsc' }
+];
+
 let currentDay = Number(localStorage.getItem('calistenia90_current_day')) || 1;
 let progress = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
 let metrics = JSON.parse(localStorage.getItem(METRICS_KEY) || '[]');
@@ -138,7 +154,7 @@ const els = {
   daySubtitle: $('daySubtitle'), daySelect: $('daySelect'), exerciseList: $('exerciseList'),
   calendar: $('calendar'), weightInput: $('weightInput'), waistInput: $('waistInput'),
   lastMetrics: $('lastMetrics'), videoDialog: $('videoDialog'), videoTitle: $('videoTitle'),
-  videoInstructions: $('videoInstructions'), videoLink: $('videoLink')
+  videoInstructions: $('videoInstructions'), videoLink: $('videoLink'), videoPlayer: $('videoPlayer')
 };
 
 function getPhase(day){ return phases.find(p => day >= p.from && day <= p.to); }
@@ -183,7 +199,7 @@ function renderExercises(){
     const info = document.createElement('div');
     info.innerHTML = `<h3>${name}</h3><p>${volume} · ${instruction}</p>`;
     const btn = document.createElement('button');
-    btn.className='video-btn'; btn.textContent='Ver técnica';
+    btn.className='video-btn'; btn.textContent='▶ Ver técnica';
     btn.addEventListener('click', () => openVideo(name, instruction));
     row.append(checkbox, info, btn);
     els.exerciseList.appendChild(row);
@@ -213,10 +229,21 @@ function renderMetrics(){
   const last=metrics[metrics.length-1];
   els.lastMetrics.textContent=`Último registro: ${last.weight || '—'} kg · cintura ${last.waist || '—'} cm · ${last.date}`;
 }
+function findVideoId(name){
+  const normalized = name.toLowerCase();
+  const found = exerciseVideos.find(video => video.match.some(term => normalized.includes(term)));
+  return found ? found.id : 'pSHjTRCQxIw';
+}
+function closeVideo(){
+  els.videoPlayer.src = '';
+  els.videoDialog.close();
+}
 function openVideo(name, instruction){
-  els.videoTitle.textContent=name;
-  els.videoInstructions.textContent=instruction;
-  els.videoLink.href=`https://www.youtube.com/results?search_query=${encodeURIComponent(name+' técnica correcta calistenia principiantes')}`;
+  const videoId = findVideoId(name);
+  els.videoTitle.textContent = name;
+  els.videoInstructions.textContent = instruction;
+  els.videoPlayer.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1&cc_lang_pref=es`;
+  els.videoLink.href = `https://www.youtube.com/watch?v=${videoId}`;
   els.videoDialog.showModal();
 }
 function render(){
@@ -239,7 +266,8 @@ $('saveMetrics').addEventListener('click',()=>{
   localStorage.setItem(METRICS_KEY,JSON.stringify(metrics));
   els.weightInput.value=''; els.waistInput.value=''; renderMetrics();
 });
-$('closeDialog').addEventListener('click',()=>els.videoDialog.close());
-els.videoDialog.addEventListener('click',e=>{if(e.target===els.videoDialog)els.videoDialog.close();});
+$('closeDialog').addEventListener('click',closeVideo);
+els.videoDialog.addEventListener('click',e=>{if(e.target===els.videoDialog)closeVideo();});
+els.videoDialog.addEventListener('cancel',e=>{e.preventDefault();closeVideo();});
 
 render();
